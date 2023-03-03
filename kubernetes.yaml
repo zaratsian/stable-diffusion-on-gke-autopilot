@@ -46,7 +46,7 @@ spec:
         cloud.google.com/gke-accelerator: "nvidia-tesla-t4"
       containers:
       - name: genai
-        image: "us-central1-docker.pkg.dev/stealth-air-23412/udp-repo/genai"
+        image: "${ARTIFACT_REPO_REGION}-docker.pkg.dev/${GCP_PROJECT_ID}/${ARTIFACT_REPO_NAME}/genai"
         ports:
           - containerPort: 8501
         resources:
