@@ -2,9 +2,11 @@
 #import torch
 #from diffusers import StableDiffusionPipeline
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from pydantic import BaseModel
+from io import BytesIO
 from mlconfig import Model
+
 
 app = FastAPI()
 modelobj = Model()
@@ -15,9 +17,13 @@ class Payload(BaseModel):
 
 @app.post("/test")
 async def test(payload: Payload):
-    print(f'Payload: {payload}')
+    print(f'Request: {payload}')
     image = pipeline(payload.text).images[0]
-    return payload
+    resized_image = image.resize((200, 200))
+    buffer = BytesIO()
+    resized_image.save(buffer, format="JPEG")
+    image_bytes = buffer.getvalue()
+    return Response(content=image_bytes, media_type="image/jpeg")
 
 # Start the FastAPI server
 if __name__ == "__main__":
