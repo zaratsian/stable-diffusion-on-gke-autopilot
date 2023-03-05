@@ -6,19 +6,22 @@ This repo contains a ML serving framework for deploying AI models specifically f
 
 ## Deployment Infra
 
-1. Copy the .env.sample to .env and edit the environment variables based on your preferences. 
+1. Copy the [.infra/terraform.tfvars.sample](./infra/terraform.tfvars.sample) file into a file called terraform.tfvars.
 
 ```
-cp .env.sample .env
+cp ./infra/terraform.tfvars.sample ./infra/terraform.tfvars
 ```
 
-2. Set env variables
+2. Edit the ./infra/terraform.tfvars file with your own values. This step is potentially optional based on your GCP security and networking setting. If the GCP "default" network is being used and your org security policies do not have rules setup to block certain services, then all of this should run without any modifification required to this terraform.tfvars file.
 
 ```
-. .env
+# If you want to modify the file, navigate into the infra directory
+cd infra
+# Then edit the terraform.tfvars file
+vi terraform.tfvars
 ```
 
-3. Deploy infrastructure
+3. Deploy the infrastructure
 
 ```
 cd infra
