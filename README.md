@@ -31,8 +31,53 @@ terraform apply
 
 ## Build and Deploy Models
 
+1. Navigate into the services directory
 
+```
+cd ./services
+```
 
+2. Copy the .env.sample into a file called .env, then edit the environment variables to match your preferred setup.
 
+```
+cd ./services
 
+# Copy the .env.sample
+cp .env.sample .env
 
+# Edit the env variables within the file
+vi .env
+
+# Apply the env variables
+. .env
+```
+
+3. Build the ML Serving Container and Deploy to Artifact Registry
+
+```
+cd ./services/app
+./cloudbuild_trigger.sh
+```
+
+4. Deploy the service to GKE
+
+```
+cd ./services
+./deploy_to_gke.sh
+```
+
+5. Wait a few minutes for the service to start up.
+
+```
+kubectl get services -n genai-ns
+kubectl get pods -n genai-ns
+```
+
+6. Test the Endpoint
+
+```
+export SERVICE_IP=$(kubectl get svc genai-service -n genai-ns -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+
+# NOTE: You will need to install the Pillow library (pip3 install Pillow)
+python3 ./services/app/make_call.py --host $SERVICE_IP --port 80 --text "surfing goat with sunset in the background"
+```

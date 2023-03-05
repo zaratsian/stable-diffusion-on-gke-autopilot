@@ -11,8 +11,15 @@ gcp_project_services = [
   "containerregistry.googleapis.com",
 ]
 
-# VPC 
+# VPC
 vpc_name = "default"
+
+# Artifact Registry Repo Configs
+artifact_repo = {
+  "genai-repo": {
+    "location": "us-central1"
+  }
+}
 
 # GKE Cluster Configs
 gke_clusters = {

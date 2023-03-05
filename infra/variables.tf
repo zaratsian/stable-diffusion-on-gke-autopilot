@@ -18,6 +18,13 @@ variable "vpc_name" {
   description = "VPC Name"
 }
 
+# Artifact Registry Repo Variables
+
+variable "artifact_repo" {
+    type        = map(any)
+    description = "Artifact Repo Configs"
+}
+
 # GKE Variables
 
 variable "gke_clusters" {
