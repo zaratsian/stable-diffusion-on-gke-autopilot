@@ -54,5 +54,5 @@ spec:
             nvidia.com/gpu: 1
             ephemeral-storage: 15Gi
           requests:
-            cpu: "18"
-            memory: "18Gi"
+            cpu: "8"
+            memory: "8Gi"
